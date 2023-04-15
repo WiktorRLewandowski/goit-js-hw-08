@@ -12,11 +12,15 @@ function inputSaver(event) {
 form.email.value = localStorage.getItem('email');
 form.message.value = localStorage.getItem('message');
 
-submitBtn.addEventListener('click', event => {
-  event.preventDefault();
-  console.log(`email: ${localStorage.getItem('email')}`);
-  console.log(`message: ${localStorage.getItem('message')}`);
-  localStorage.clear();
-  form.email.value = localStorage.getItem('email');
-  form.message.value = localStorage.getItem('message');
+submitBtn.addEventListener('click', () => {
+  let validRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  if (form.email.value.match(validRegex)) {
+    console.log(`email: ${localStorage.getItem('email')}`);
+    console.log(`message: ${localStorage.getItem('message')}`);
+    localStorage.clear();
+    form.reset();
+  } else {
+    alert('Enter a valid e-mail address!');
+    return;
+  }
 });
